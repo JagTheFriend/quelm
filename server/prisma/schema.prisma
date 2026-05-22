@@ -23,14 +23,15 @@ model WorkflowDefinition {
 
 // This is a live execution of a workflow definition. Every time you hit "Run" on a workflow, a new WorkflowRun row is created. The definition stays untouched, the run is what changes over time.
 model WorkflowRun {
-  id         String    @id @default(cuid())
-  workflowId String
-  status     RunStatus @default(PENDING)
-  input      Json
-  output     Json?
-  startedAt  DateTime  @default(now())
+  id          String    @id @default(cuid())
+  workflowId  String
+  status      RunStatus @default(PENDING)
+  input       Json
+  output      Json?
+  startedAt   DateTime  @default(now())
   completedAt DateTime?
-  error      String?
+  error       String?
+  critical    Boolean   @default(true)
 
   workflow WorkflowDefinition @relation(fields: [workflowId], references: [id])
   tasks    Task[]
@@ -50,7 +51,7 @@ model Task {
   error       String?
   attempts    Int        @default(0)
   maxAttempts Int        @default(3)
-  dependsOn Json @default("[]")
+  dependsOn   Json       @default("[]")
   startedAt   DateTime?
   completedAt DateTime?
   createdAt   DateTime   @default(now())
@@ -71,8 +72,8 @@ model Agent {
   tasksFailed  Int         @default(0)
   createdAt    DateTime    @default(now())
 
-  @@map("agents")
   @@unique([name, type])
+  @@map("agents")
 }
 
 enum RunStatus {
