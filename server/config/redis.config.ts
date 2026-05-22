@@ -1,6 +1,7 @@
 import Redis from "ioredis";
 import { logger } from "./logger.config";
 import config from "./index";
+import { JobQueue } from "../queues";
 
 const retryStrategy = (times: number): number => {
   const delay = Math.min(times * 200, 5000);
@@ -54,6 +55,8 @@ process.on("SIGINT", async () => {
   await redis.quit();
 
   logger.success("Redis connection closed successfully");
+  await JobQueue.closeAllQueues();
+  await redis.quit();
 
   process.exit(0);
 });
