@@ -6,6 +6,8 @@ import { logger } from "./config/logger.config";
 import { JobQueue } from "./queues";
 import { AgentRegistry } from "./agents/registry";
 import { Orchestrator } from "./orchestrator";
+import { createApiRoutes } from "./api";
+import { errorHandlerMiddleware } from "./middleware/error.middleware";
 
 dotenv.config();
 
@@ -33,6 +35,10 @@ const start = async (): Promise<void> => {
     // Start orchestrator
     await orchestrator.start();
     logger.success("Orchestrator started successfully");
+
+    // Wire in the routes and middleware
+    app.use(createApiRoutes(orchestrator, prisma));
+    app.use(errorHandlerMiddleware);
 
     // Start Express server
     const PORT = process.env.PORT || 8000;
