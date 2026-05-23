@@ -28,7 +28,7 @@ export class WorkflowController {
       res.status(200).json({
         message: "Workflows fetched successfully",
         success: true,
-        data: { workflows },
+        data: workflows,
       });
     } catch (err) {
       next(err);
@@ -42,7 +42,7 @@ export class WorkflowController {
       res.status(200).json({
         message: "Workflow fetched successfully",
         success: true,
-        data: { workflow },
+        data: workflow,
       });
     } catch (err) {
       next(err);
@@ -56,7 +56,7 @@ export class WorkflowController {
       res.status(201).json({
         message: "Workflow created successfully",
         success: true,
-        data: { workflow },
+        data: workflow,
       });
     } catch (err) {
       next(err);
@@ -71,7 +71,7 @@ export class WorkflowController {
       res.status(200).json({
         message: "Workflow triggered successfully",
         success: true,
-        data: { workflow },
+        data: workflow,
       });
     } catch (err) {
       next(err);
