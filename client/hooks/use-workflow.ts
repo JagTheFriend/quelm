@@ -25,6 +25,11 @@ export const useWorkflows = () => {
   return useQuery({
     queryKey: ["workflows"],
     queryFn: getAllWorkflows,
+    staleTime: 1000 * 30,
+    gcTime: 1000 * 60 * 5,
+    refetchOnMount: "always",
+    refetchOnReconnect: true,
+    retry: 1,
   });
 };
 
