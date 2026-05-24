@@ -7,6 +7,7 @@ export class WorkflowRunRepository {
     return await this.prisma.workflowRun.findMany({
       include: {
         tasks: true,
+        workflow: true,
       },
     });
   }
