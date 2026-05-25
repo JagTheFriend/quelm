@@ -154,6 +154,9 @@ quelm/
 ├── client/                         # Next.js frontend
 │   ├── app/                        # App router pages
 │   ├── components/                 # React components
+│   ├── hooks/                      # Custom hooks for API calling
+│   ├── lib/                        # Utility methods and types
+│   ├── providers/                  # Context providers
 │   └── package.json
 ├── server/                         # Express backend
 │   ├── agents/                     # Agent worker implementations
