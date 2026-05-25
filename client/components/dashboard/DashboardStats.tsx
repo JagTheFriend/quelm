@@ -1,19 +1,21 @@
 "use client";
 
-import { Activity, AlertCircle, Bot, CheckCircle2, Workflow } from "lucide-react";
+import { Activity, Bot, CheckCircle2, Workflow } from "lucide-react";
 
 import StatCard from "./StatCard";
 import { useDashboardStats } from "@/hooks/use-dashboard";
+import ErrorState from "../ui/ErrorState";
 
 const DashboardStats = () => {
-  const { data, isLoading, error } = useDashboardStats();
+  const { data, isLoading, error, refetch } = useDashboardStats();
 
   if (error) {
     return (
-      <div className="flex items-center gap-3 rounded-2xl border border-destructive/20 bg-destructive/5 p-4 text-sm text-destructive">
-        <AlertCircle className="h-4 w-4" />
-        Failed to load dashboard metrics.
-      </div>
+      <ErrorState
+        title={"Failed to load dashboard metrics."}
+        description={error.message}
+        onRetry={refetch}
+      />
     );
   }
 

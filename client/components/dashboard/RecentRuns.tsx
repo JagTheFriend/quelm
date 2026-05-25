@@ -1,12 +1,23 @@
 "use client";
 
-import { AlertCircle, Clock3 } from "lucide-react";
+import { Clock3 } from "lucide-react";
 
 import { useRecentRuns } from "@/hooks/use-dashboard";
 import { RecentRun } from "@/lib/types";
+import ErrorState from "../ui/ErrorState";
 
 const RecentRuns = () => {
-  const { data, isLoading, error } = useRecentRuns();
+  const { data, isLoading, error, refetch } = useRecentRuns();
+
+  if (error) {
+    return (
+      <ErrorState
+        title={"Failed to load recent workflow runs."}
+        description={error.message}
+        onRetry={refetch}
+      />
+    );
+  }
 
   return (
     <div className="overflow-hidden rounded-2xl border border-border bg-card/80">
@@ -20,14 +31,6 @@ const RecentRuns = () => {
           </p>
         </div>
       </div>
-
-      {/* Error */}
-      {error && (
-        <div className="flex items-center gap-3 p-6 text-sm text-destructive">
-          <AlertCircle className="h-4 w-4" />
-          Failed to load recent workflow runs.
-        </div>
-      )}
 
       {/* Loading */}
       {isLoading && (

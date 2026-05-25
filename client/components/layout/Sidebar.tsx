@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { NAV_ITEMS } from "@/lib/constants/navigation";
+import Icon from "../ui/Icon";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -12,7 +13,8 @@ const Sidebar = () => {
   return (
     <aside className="fixed left-0 top-0 flex h-screen w-64 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
       {/* Brand */}
-      <div className="flex h-16 items-center border-b border-sidebar-border px-6">
+      <div className="flex h-16 items-center border-b border-sidebar-border px-6 gap-2">
+        <Icon size={32} />
         <h1 className="text-xl font-semibold tracking-tight">Quelm</h1>
       </div>
 

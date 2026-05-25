@@ -1,17 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Activity,
-  ArrowRight,
-  Clock3,
-  PlayCircle,
-  RefreshCcw,
-  Workflow,
-} from "lucide-react";
+import { Activity, ArrowRight, Clock3, PlayCircle, Workflow } from "lucide-react";
 
 import { useRuns } from "@/hooks/use-run";
 import { WorkflowRun } from "@/lib/types";
+import ErrorState from "@/components/ui/ErrorState";
 
 const STATUS_STYLES: Record<string, string> = {
   COMPLETED: "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
@@ -83,28 +77,12 @@ const RunPage = () => {
 
       {/* Error State */}
       {error && (
-        <div className="flex min-h-105 flex-col items-center justify-center rounded-3xl border border-border bg-card/30 px-6 text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-red-500/20 bg-red-500/10">
-            <RefreshCcw className="h-7 w-7 text-red-400" />
-          </div>
-
-          <h2 className="mt-6 text-xl font-semibold tracking-tight">
-            Failed to load runs
-          </h2>
-
-          <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
-            Quelm could not retrieve workflow execution history from the orchestration
-            layer.
-          </p>
-
-          <button
-            onClick={() => refetch()}
-            className="mt-6 inline-flex items-center gap-2 rounded-xl border border-border bg-card-foreground px-4 py-2 text-sm font-medium text-background transition-all duration-300 ease-out hover:scale-[1.03] hover:bg-white hover:shadow-lg hover:shadow-white/5 active:scale-[0.98]"
-          >
-            <RefreshCcw className="h-4 w-4" />
-            Retry
-          </button>
-        </div>
+        <ErrorState
+          title="Failed to load runs"
+          description="Quelm could not retrieve workflow execution history from the orchestration
+            layer."
+          onRetry={refetch}
+        />
       )}
 
       {/* Loading */}

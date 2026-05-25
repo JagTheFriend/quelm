@@ -1,19 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Activity,
-  AlertTriangle,
-  Bot,
-  BrainCircuit,
-  Cpu,
-  RefreshCcw,
-  Server,
-  Workflow,
-} from "lucide-react";
+import { Activity, Bot, BrainCircuit, Cpu, Server, Workflow } from "lucide-react";
 
 import { useAgents } from "@/hooks/use-agent";
 import { Agent } from "@/lib/types";
+import ErrorState from "@/components/ui/ErrorState";
 
 const STATUS_STYLES: Record<string, string> = {
   ONLINE: "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
@@ -89,27 +81,11 @@ const AgentsPage = () => {
 
       {/* Error State */}
       {error && (
-        <div className="flex min-h-[420px] flex-col items-center justify-center rounded-3xl border border-border bg-card/30 px-6 text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-red-500/20 bg-red-500/10">
-            <AlertTriangle className="h-7 w-7 text-red-400" />
-          </div>
-
-          <h2 className="mt-6 text-xl font-semibold tracking-tight">
-            Failed to load agents
-          </h2>
-
-          <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
-            Quelm could not retrieve worker heartbeat data from the orchestration layer.
-          </p>
-
-          <button
-            onClick={() => refetch()}
-            className="mt-6 inline-flex items-center gap-2 rounded-xl border border-border bg-card-foreground px-4 py-2 text-sm font-medium text-background transition-all duration-300 ease-out hover:scale-[1.03] hover:bg-white hover:shadow-lg hover:shadow-white/5 active:scale-[0.98]"
-          >
-            <RefreshCcw className="h-4 w-4" />
-            Retry
-          </button>
-        </div>
+        <ErrorState
+          title="Failed to load agents"
+          description="Quelm could not retrieve worker heartbeat data from the orchestration layer."
+          onRetry={refetch}
+        />
       )}
 
       {/* Loading */}

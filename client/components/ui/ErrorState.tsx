@@ -37,9 +37,6 @@ const ErrorState = ({
           Retry
         </button>
       )}
-
-      {/* subtle bottom glow */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-destructive/30 to-transparent" />
     </div>
   );
 };
