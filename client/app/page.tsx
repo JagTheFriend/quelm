@@ -644,16 +644,20 @@ export default function LandingPage() {
           <p>© 2026 Quelm. Distributed workflow orchestration platform.</p>
 
           <div className="flex items-center gap-6">
-            <a href="#" className="transition-colors hover:text-white">
+            <a
+              href="https://github.com/SHIVAM-KUMAR-59/quelm"
+              target="_blank"
+              className="transition-colors hover:text-white"
+            >
               Documentation
             </a>
 
-            <a href="#" className="transition-colors hover:text-white">
+            <a
+              href="https://github.com/SHIVAM-KUMAR-59"
+              target="_blank"
+              className="transition-colors hover:text-white"
+            >
               GitHub
-            </a>
-
-            <a href="#" className="transition-colors hover:text-white">
-              API
             </a>
           </div>
         </div>
