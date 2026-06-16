@@ -21,6 +21,7 @@ A distributed multi-agent workflow platform where AI agents collaborate asynchro
   - [Environment Variables](#environment-variables)
   - [Running Locally](#running-locally)
 - [API Reference](#api-reference)
+  - [Authentication](#authentication)
   - [Workflows](#workflows)
   - [Runs](#runs)
   - [Agents](#agents)
@@ -353,6 +354,73 @@ Errors follow this shape:
   "message": "Error description",
   "errorCode": "NOT_FOUND"
 }
+```
+
+### Authentication
+
+| Method | Endpoint                       | Description                              | Auth Required |
+| ------ | ------------------------------ | ---------------------------------------- | ------------- |
+| `POST` | `/api/auth/register`           | Create a new account with email/password | No            |
+| `POST` | `/api/auth/login`              | Login with email/password                | No            |
+| `POST` | `/api/auth/refresh`            | Exchange refresh token for access token  | No            |
+| `POST` | `/api/auth/logout`             | Invalidate refresh token and clear cookie| No            |
+| `GET`  | `/api/auth/me`                 | Get current user profile                 | Yes           |
+| `GET`  | `/api/auth/google`             | Redirect to Google OAuth consent         | No            |
+| `GET`  | `/api/auth/google/callback`    | Handle Google OAuth callback             | No            |
+| `GET`  | `/api/auth/github`             | Redirect to GitHub OAuth consent         | No            |
+| `GET`  | `/api/auth/github/callback`    | Handle GitHub OAuth callback             | No            |
+
+**Register:**
+
+```bash
+POST /api/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "securepassword",
+  "name": "Jane Doe"
+}
+```
+
+**Login:**
+
+```bash
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "securepassword"
+}
+```
+
+**Refresh token:**
+
+```bash
+POST /api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "your_refresh_token"
+}
+```
+
+The refresh token is also read from the `refreshToken` HTTP-only cookie if present.
+
+**Logout:**
+
+```bash
+POST /api/auth/logout
+```
+
+No body required. Clears the `refreshToken` cookie and invalidates the stored token.
+
+**Get current user:**
+
+```bash
+GET /api/auth/me
+Authorization: Bearer <accessToken>
 ```
 
 ### Workflows
