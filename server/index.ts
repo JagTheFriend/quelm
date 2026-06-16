@@ -8,6 +8,7 @@ import { JobQueue } from "./queues";
 import { AgentRegistry } from "./agents/registry";
 import { Orchestrator } from "./orchestrator";
 import { createApiRoutes } from "./api";
+import { swaggerRouter } from "./swagger";
 import { errorHandlerMiddleware } from "./middleware/error.middleware";
 import { requestLogger } from "./middleware/request-logger.middleware";
 
@@ -57,6 +58,7 @@ const start = async (): Promise<void> => {
       res.json({ status: "ok" });
     });
 
+    app.use("/api/docs", swaggerRouter);
     app.use(createApiRoutes(orchestrator, prisma));
     app.use(errorHandlerMiddleware);
 
