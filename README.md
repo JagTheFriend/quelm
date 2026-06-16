@@ -21,6 +21,7 @@ A distributed multi-agent workflow platform where AI agents collaborate asynchro
   - [Environment Variables](#environment-variables)
   - [Running Locally](#running-locally)
 - [API Reference](#api-reference)
+  - [Authentication](#authentication)
   - [Workflows](#workflows)
   - [Runs](#runs)
   - [Agents](#agents)
@@ -354,6 +355,85 @@ Errors follow this shape:
   "errorCode": "NOT_FOUND"
 }
 ```
+
+### Authentication
+
+| Method | Endpoint                    | Description                               | Auth Required |
+| ------ | --------------------------- | ----------------------------------------- | ------------- |
+| `POST` | `/api/auth/register`        | Create a new account with email/password  | No            |
+| `POST` | `/api/auth/login`           | Login with email/password                 | No            |
+| `POST` | `/api/auth/refresh`         | Exchange refresh token for access token   | No            |
+| `POST` | `/api/auth/logout`          | Invalidate refresh token and clear cookie | No            |
+| `GET`  | `/api/auth/me`              | Get current user profile                  | Yes           |
+| `GET`  | `/api/auth/google`          | Redirect to Google OAuth consent          | No            |
+| `GET`  | `/api/auth/google/callback` | Handle Google OAuth callback              | No            |
+| `GET`  | `/api/auth/github`          | Redirect to GitHub OAuth consent          | No            |
+| `GET`  | `/api/auth/github/callback` | Handle GitHub OAuth callback              | No            |
+
+**Register:**
+
+```bash
+POST /api/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "securepassword",
+  "name": "Jane Doe"
+}
+```
+
+**Login:**
+
+```bash
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "securepassword"
+}
+```
+
+**Refresh token:**
+
+```bash
+POST /api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "your_refresh_token"
+}
+```
+
+The refresh token is also read from the `refreshToken` HTTP-only cookie if present.
+
+**Logout:**
+
+```bash
+POST /api/auth/logout
+```
+
+No body required. Clears the `refreshToken` cookie and invalidates the stored token.
+
+**Get current user:**
+
+```bash
+GET /api/auth/me
+Authorization: Bearer <accessToken>
+```
+
+**Google OAuth:**
+
+Initiate the OAuth flow by redirecting the user to `/api/auth/google`. After granting access, Google redirects back to `/api/auth/google/callback` with an authorization code. The server exchanges the code for tokens, finds or creates the user, and redirects to `{CLIENT_URL}/auth/callback?token={accessToken}`.
+
+Requires `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` environment variables. Returns 503 if not configured.
+
+**GitHub OAuth:**
+
+Same flow as Google but uses `/api/auth/github` and `/api/auth/github/callback`. The server requests the `user:email read:user` scope to retrieve the user's primary verified email.
+
+Requires `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` environment variables. Returns 503 if not configured.
 
 ### Workflows
 
