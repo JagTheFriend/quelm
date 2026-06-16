@@ -19,4 +19,8 @@ swaggerRouter.get("/openapi.json", (_req, res) => {
   res.json(spec);
 });
 
-swaggerRouter.use("/", swaggerUi.serveFiles(undefined, swaggerOptions), swaggerUi.setup(spec, swaggerOptions));
+swaggerRouter.use(
+  "/",
+  swaggerUi.serveFiles(undefined, swaggerOptions),
+  swaggerUi.setup(spec, swaggerOptions),
+);

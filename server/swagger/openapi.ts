@@ -41,7 +41,11 @@ const spec: OpenAPI.Document = {
           id: { type: "string", description: "User ID" },
           email: { type: "string", format: "email", description: "User email" },
           name: { type: "string", description: "User display name" },
-          createdAt: { type: "string", format: "date-time", description: "Account creation timestamp" },
+          createdAt: {
+            type: "string",
+            format: "date-time",
+            description: "Account creation timestamp",
+          },
         },
         required: ["id", "email", "name", "createdAt"],
       },
@@ -124,7 +128,11 @@ const spec: OpenAPI.Document = {
         properties: {
           id: { type: "string", description: "Workflow ID" },
           name: { type: "string", description: "Workflow name" },
-          description: { type: "string", nullable: true, description: "Workflow description" },
+          description: {
+            type: "string",
+            nullable: true,
+            description: "Workflow description",
+          },
           definition: { $ref: "#/components/schemas/WorkflowDefinition" },
           createdAt: { type: "string", format: "date-time" },
           updatedAt: { type: "string", format: "date-time" },
@@ -264,7 +272,11 @@ const spec: OpenAPI.Document = {
                 required: ["email", "password", "name"],
                 properties: {
                   email: { type: "string", format: "email", description: "User email" },
-                  password: { type: "string", minLength: 8, description: "User password" },
+                  password: {
+                    type: "string",
+                    minLength: 8,
+                    description: "User password",
+                  },
                   name: { type: "string", description: "User display name" },
                 },
               },
@@ -365,7 +377,10 @@ const spec: OpenAPI.Document = {
               schema: {
                 type: "object",
                 properties: {
-                  refreshToken: { type: "string", description: "Refresh token (also accepted via cookie)" },
+                  refreshToken: {
+                    type: "string",
+                    description: "Refresh token (also accepted via cookie)",
+                  },
                 },
               },
             },
@@ -605,7 +620,10 @@ const spec: OpenAPI.Document = {
                     required: ["name", "definition"],
                     properties: {
                       name: { type: "string", description: "Workflow name" },
-                      description: { type: "string", description: "Workflow description" },
+                      description: {
+                        type: "string",
+                        description: "Workflow description",
+                      },
                       definition: { $ref: "#/components/schemas/WorkflowDefinition" },
                     },
                   },

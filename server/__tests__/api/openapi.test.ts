@@ -14,9 +14,7 @@ describe("Swagger / OpenAPI Documentation", () => {
 
   describe("GET /api/docs/openapi.json", () => {
     it("returns a valid OpenAPI 3.0 spec", async () => {
-      const res = await request(app)
-        .get("/api/docs/openapi.json")
-        .expect(200);
+      const res = await request(app).get("/api/docs/openapi.json").expect(200);
 
       expect(res.body).toHaveProperty("openapi", "3.0.3");
       expect(res.body).toHaveProperty("info");
@@ -25,9 +23,7 @@ describe("Swagger / OpenAPI Documentation", () => {
     });
 
     it("includes all API tags", async () => {
-      const res = await request(app)
-        .get("/api/docs/openapi.json")
-        .expect(200);
+      const res = await request(app).get("/api/docs/openapi.json").expect(200);
 
       const tagNames = res.body.tags.map((t: { name: string }) => t.name);
       expect(tagNames).toContain("Health");
@@ -39,9 +35,7 @@ describe("Swagger / OpenAPI Documentation", () => {
     });
 
     it("documents all expected endpoints", async () => {
-      const res = await request(app)
-        .get("/api/docs/openapi.json")
-        .expect(200);
+      const res = await request(app).get("/api/docs/openapi.json").expect(200);
 
       const paths = Object.keys(res.body.paths);
       expect(paths).toContain("/health");
@@ -64,9 +58,7 @@ describe("Swagger / OpenAPI Documentation", () => {
     });
 
     it("defines reusable component schemas", async () => {
-      const res = await request(app)
-        .get("/api/docs/openapi.json")
-        .expect(200);
+      const res = await request(app).get("/api/docs/openapi.json").expect(200);
 
       const schemas = Object.keys(res.body.components.schemas);
       expect(schemas).toContain("User");
@@ -84,9 +76,7 @@ describe("Swagger / OpenAPI Documentation", () => {
     });
 
     it("configures bearer auth security scheme", async () => {
-      const res = await request(app)
-        .get("/api/docs/openapi.json")
-        .expect(200);
+      const res = await request(app).get("/api/docs/openapi.json").expect(200);
 
       expect(res.body.components.securitySchemes.bearerAuth).toEqual({
         type: "http",
@@ -97,9 +87,7 @@ describe("Swagger / OpenAPI Documentation", () => {
     });
 
     it("marks protected endpoints with security requirement", async () => {
-      const res = await request(app)
-        .get("/api/docs/openapi.json")
-        .expect(200);
+      const res = await request(app).get("/api/docs/openapi.json").expect(200);
 
       const protectedEndpoints = [
         { path: "/api/auth/me", method: "get" },
@@ -118,9 +106,7 @@ describe("Swagger / OpenAPI Documentation", () => {
     });
 
     it("does not require auth on public endpoints", async () => {
-      const res = await request(app)
-        .get("/api/docs/openapi.json")
-        .expect(200);
+      const res = await request(app).get("/api/docs/openapi.json").expect(200);
 
       const publicEndpoints = [
         { path: "/health", method: "get" },
@@ -140,9 +126,7 @@ describe("Swagger / OpenAPI Documentation", () => {
 
   describe("GET /api/docs/", () => {
     it("serves the Swagger UI HTML", async () => {
-      const res = await request(app)
-        .get("/api/docs/")
-        .expect(200);
+      const res = await request(app).get("/api/docs/").expect(200);
 
       expect(res.headers["content-type"]).toContain("text/html");
       expect(res.text).toContain("swagger-ui");
