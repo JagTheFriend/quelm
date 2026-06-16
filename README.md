@@ -423,6 +423,18 @@ GET /api/auth/me
 Authorization: Bearer <accessToken>
 ```
 
+**Google OAuth:**
+
+Initiate the OAuth flow by redirecting the user to `/api/auth/google`. After granting access, Google redirects back to `/api/auth/google/callback` with an authorization code. The server exchanges the code for tokens, finds or creates the user, and redirects to `{CLIENT_URL}/auth/callback?token={accessToken}`.
+
+Requires `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` environment variables. Returns 503 if not configured.
+
+**GitHub OAuth:**
+
+Same flow as Google but uses `/api/auth/github` and `/api/auth/github/callback`. The server requests the `user:email read:user` scope to retrieve the user's primary verified email.
+
+Requires `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` environment variables. Returns 503 if not configured.
+
 ### Workflows
 
 | Method | Endpoint                | Description                      |
