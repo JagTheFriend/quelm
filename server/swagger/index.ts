@@ -15,8 +15,8 @@ const swaggerOptions = {
 
 export const swaggerRouter = Router();
 
-swaggerRouter.use("/", swaggerUi.serveFiles(undefined, swaggerOptions), swaggerUi.setup(spec, swaggerOptions));
-
 swaggerRouter.get("/openapi.json", (_req, res) => {
   res.json(spec);
 });
+
+swaggerRouter.use("/", swaggerUi.serveFiles(undefined, swaggerOptions), swaggerUi.setup(spec, swaggerOptions));
