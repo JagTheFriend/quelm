@@ -358,17 +358,17 @@ Errors follow this shape:
 
 ### Authentication
 
-| Method | Endpoint                       | Description                              | Auth Required |
-| ------ | ------------------------------ | ---------------------------------------- | ------------- |
-| `POST` | `/api/auth/register`           | Create a new account with email/password | No            |
-| `POST` | `/api/auth/login`              | Login with email/password                | No            |
-| `POST` | `/api/auth/refresh`            | Exchange refresh token for access token  | No            |
-| `POST` | `/api/auth/logout`             | Invalidate refresh token and clear cookie| No            |
-| `GET`  | `/api/auth/me`                 | Get current user profile                 | Yes           |
-| `GET`  | `/api/auth/google`             | Redirect to Google OAuth consent         | No            |
-| `GET`  | `/api/auth/google/callback`    | Handle Google OAuth callback             | No            |
-| `GET`  | `/api/auth/github`             | Redirect to GitHub OAuth consent         | No            |
-| `GET`  | `/api/auth/github/callback`    | Handle GitHub OAuth callback             | No            |
+| Method | Endpoint                    | Description                               | Auth Required |
+| ------ | --------------------------- | ----------------------------------------- | ------------- |
+| `POST` | `/api/auth/register`        | Create a new account with email/password  | No            |
+| `POST` | `/api/auth/login`           | Login with email/password                 | No            |
+| `POST` | `/api/auth/refresh`         | Exchange refresh token for access token   | No            |
+| `POST` | `/api/auth/logout`          | Invalidate refresh token and clear cookie | No            |
+| `GET`  | `/api/auth/me`              | Get current user profile                  | Yes           |
+| `GET`  | `/api/auth/google`          | Redirect to Google OAuth consent          | No            |
+| `GET`  | `/api/auth/google/callback` | Handle Google OAuth callback              | No            |
+| `GET`  | `/api/auth/github`          | Redirect to GitHub OAuth consent          | No            |
+| `GET`  | `/api/auth/github/callback` | Handle GitHub OAuth callback              | No            |
 
 **Register:**
 
